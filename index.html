@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Happy Birthday!</title>
+  <link rel="shortcut icon" type="image/x-icon" href="./img/hbd.png" />
+
+  <!-- Preconnect fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Handlee&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 4 CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+
+  <!-- Animate.css v4 -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- CSS utama -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Audio: akan diputar setelah ketukan pertama -->
+  <audio id="background-music" src="./music/selamatulangtahun-song.mp3" preload="auto" loop></audio>
+  <!-- SFX duar -->
+  <audio id="sfx-boom" src="./music/duar.mp3" preload="auto"></audio>
+
+
+  <div class="bg" id="content">
+    <!-- Countdown -->
+    <div class="container" id="timer">
+      <h5>Hitung mundur ke ulang tahun <span id="name"></span> :</h5>
+      <ul class="list-unstyled d-flex flex-wrap justify-content-center">
+        <li class="mr-3"><span id="days">0</span> days</li>
+        <li class="mr-3"><span id="hours">0</span> Hours</li>
+        <li class="mr-3"><span id="minutes">0</span> Minutes</li>
+        <li class="mr-3"><span id="seconds">0</span> Seconds</li>
+      </ul>
+    </div>
+
+    <!-- Slide 1 -->
+    <div id="slideSatu" class="animate__animated animate__slideInDown animate__slow d-none">
+      <img src="./img/hbd1.png" class="img" alt="Kartu ucapan ulang tahun" />
+    </div>
+
+    <!-- Slide 2 -->
+    <div id="slideDua" class="slides d-none paper animate__zoomInDown animate__animated animate__delay-2s animate__slow">
+      <div class="paper-content">
+        <p id="teks1" class="teks"></p>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div id="slideTiga" class="slides d-none paper animate__fadeInRight animate__animated">
+      <div class="paper-content">
+        <p id="teks2" class="teks"></p>
+      </div>
+    </div>
+
+    <!-- Slide 4 (pertanyaan) -->
+    <div class="kotak d-none slides animate__animated animate__fadeInDown animate__delay-2s" id="slideEmpat">
+      <div class="row">
+        <div class="col-sm mt-1">
+          <h5>Kamu suka nggak?</h5>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 offset-2">
+          <button id="gak" class="btn btn-outline-danger">Gak!</button>
+        </div>
+        <div class="col-4">
+          <button id="suka" class="btn btn-outline-info">Suka!!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div id="slideLima" class="d-none animate__bounceIn animate__animated animate__slow">
+      <i class="fas fa-heart fa-5x text-danger" aria-hidden="true"></i>
+      <span class="sr-only">Cinta</span>
+    </div>
+    <p id="trims" class="text-muted d-none mt-2"></p>
+
+    <!-- Prompt tap (muncul setelah countdown selesai) -->
+    <p id="tap" class="d-none animate__animated animate__pulse text-muted animate__slow">Ketuk untuk melanjutkan</p>
+  </div>
+
+  <footer class="page-footer font-small blue fixed-bottom"></footer>
+
+  <!-- JS: jQuery slim, Popper, Bootstrap -->
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Font Awesome Kit -->
+  <script src="https://kit.fontawesome.com/61e5120832.js" crossorigin="anonymous"></script>
+
+  <!-- TypeIt -->
+  <script src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script>
+
+  <!-- Moment core + Timezone + data (gunakan ini saja; jangan load moment lain) -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/min/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.45/builds/moment-timezone-with-data-1970-2030.min.js"></script>
+
+  <!-- Script utama (HARUS terakhir) -->
+  <script src="script.js"></script>
+</body>
+</html>
