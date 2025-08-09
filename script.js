@@ -172,11 +172,8 @@ function startTypeIt2() {
     new TypeIt("#teks2", {
       strings: [
         "Dengan ataupun tanpaku, semoga semesta selalu membahagiakan kamu bagimanapun caranya.",
-        " ",
         "barakallah fi umrik, terima kasih sudah bertahan sampai sejauh ini.",
-        " ",
         "Semoga kamu selalu dikelilingi oleh orang-orang yang mencintaimu.",
-        " ",
         "Semoga kamu selalu menemukan kebahagiaan dalam setiap langkahmu.",
         " ",
         "Wish you all the best",
@@ -518,7 +515,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Countdown selesai pada 22 Agustus 2025 23:59:59 WIB
   startCountdown(
-    { targetISO: "2025-08-09T19:01:09", tz: "Asia/Jakarta" },
+    { targetISO: "2025-08-22T23:59:59", tz: "Asia/Jakarta" },
     async () => {
       // Slide 1 tampil dulu
       const slideSatu = qs("#slideSatu");
