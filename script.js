@@ -1,5 +1,5 @@
 // ================== Helpers ==================
-const qs  = (sel) => document.querySelector(sel);
+const qs = (sel) => document.querySelector(sel);
 const qsa = (sel) => Array.from(document.querySelectorAll(sel));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -28,18 +28,22 @@ function hideTap() {
 async function playOnFirstInteraction() {
   const music = /** @type {HTMLAudioElement} */ (qs("#background-music"));
   if (!music) return;
-  try { await music.play(); } catch {}
+  try {
+    await music.play();
+  } catch {}
 }
 
 // ====== SFX "duar" ======
 function playBoomSFX() {
-  const s = /** @type {HTMLAudioElement} */ (document.getElementById("sfx-boom"));
+  const s = /** @type {HTMLAudioElement} */ (
+    document.getElementById("sfx-boom")
+  );
   if (!s) return;
   try {
     s.currentTime = 0;
     s.play().catch(() => {
       // jika diblokir, mainkan pada ketukan berikut
-      const once = () => s.play().catch(()=>{});
+      const once = () => s.play().catch(() => {});
       document.body.addEventListener("click", once, { once: true });
     });
   } catch {}
@@ -51,7 +55,16 @@ function spawnPaperExplosion() {
   container.className = "paper-explosion";
   document.body.appendChild(container);
 
-  const colors = ["#FF477E", "#F9C74F", "#43AA8B", "#577590", "#F94144", "#90BE6D", "#F3722C", "#277DA1"];
+  const colors = [
+    "#FF477E",
+    "#F9C74F",
+    "#43AA8B",
+    "#577590",
+    "#F94144",
+    "#90BE6D",
+    "#F3722C",
+    "#277DA1",
+  ];
   const pieces = 90;
 
   for (let i = 0; i < pieces; i++) {
@@ -63,8 +76,8 @@ function spawnPaperExplosion() {
     const dist = 80 + Math.random() * 140;
     const tx = (side === "left" ? 1 : -1) * dist;
     const ty = -40 + Math.random() * 140;
-    const rot = (Math.random() * 720 - 360) + "deg";
-    const delay = (Math.random() * 0.15) + "s";
+    const rot = Math.random() * 720 - 360 + "deg";
+    const delay = Math.random() * 0.15 + "s";
 
     el.style.setProperty("--tx", tx + "px");
     el.style.setProperty("--ty", ty + "px");
@@ -90,25 +103,25 @@ function boomAndPaper() {
 
 // ================== Countdown (moment-timezone) ==================
 function startCountdown({ targetISO, tz }, onFinish) {
-  const timer     = qs("#timer");
-  const daysEl    = qs("#days");
-  const hoursEl   = qs("#hours");
+  const timer = qs("#timer");
+  const daysEl = qs("#days");
+  const hoursEl = qs("#hours");
   const minutesEl = qs("#minutes");
   const secondsEl = qs("#seconds");
 
   let id = null;
 
   function setZero() {
-    if (daysEl)    daysEl.textContent = "0";
-    if (hoursEl)   hoursEl.textContent = "0";
+    if (daysEl) daysEl.textContent = "0";
+    if (hoursEl) hoursEl.textContent = "0";
     if (minutesEl) minutesEl.textContent = "0";
     if (secondsEl) secondsEl.textContent = "0";
   }
 
   function tick() {
-    const now    = moment.tz(tz);
+    const now = moment.tz(tz);
     const target = moment.tz(targetISO, tz);
-    const diff   = target.diff(now);
+    const diff = target.diff(now);
 
     if (diff <= 0) {
       setZero();
@@ -122,8 +135,8 @@ function startCountdown({ targetISO, tz }, onFinish) {
     const m = Math.floor((diff / (60 * 1000)) % 60);
     const s = Math.floor((diff / 1000) % 60);
 
-    if (daysEl)    daysEl.textContent = String(d);
-    if (hoursEl)   hoursEl.textContent = String(h);
+    if (daysEl) daysEl.textContent = String(d);
+    if (hoursEl) hoursEl.textContent = String(h);
     if (minutesEl) minutesEl.textContent = String(m);
     if (secondsEl) secondsEl.textContent = String(s);
   }
@@ -175,7 +188,6 @@ function startTypeIt2() {
         "barakallah fi umrik, terima kasih sudah bertahan sampai sejauh ini.",
         "Semoga kamu selalu dikelilingi oleh orang-orang yang mencintaimu.",
         "Semoga kamu selalu menemukan kebahagiaan dalam setiap langkahmu.",
-        " ",
         "Wish you all the best",
         " ",
         "-Angga, dengan cinta",
@@ -286,7 +298,10 @@ async function slideEmpatFlow() {
         "click",
         async () => {
           slideEmpat.classList.remove("animate__delay-2s");
-          slideEmpat.classList.replace("animate__fadeInDown", "animate__bounceOut");
+          slideEmpat.classList.replace(
+            "animate__fadeInDown",
+            "animate__bounceOut"
+          );
           await sleep(900);
           slideEmpat.remove();
           await sleep(300);
@@ -323,7 +338,11 @@ async function slideLimaFlow() {
   slideLima.classList.add("animate__delay-3s");
   slideLima.classList.replace("animate__bounceIn", "animate__fadeOut");
   if (trims) {
-    trims.classList.add("animate__animated", "animate__fadeOut", "animate__delay-3s");
+    trims.classList.add(
+      "animate__animated",
+      "animate__fadeOut",
+      "animate__delay-3s"
+    );
   }
   await sleep(6300);
   if (trims) trims.remove();
@@ -347,9 +366,12 @@ function confetti() {
 
   var runFor = 2000;
   var isRunning = true;
-  setTimeout(() => { isRunning = false; }, runFor);
+  setTimeout(() => {
+    isRunning = false;
+  }, runFor);
 
-  var konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65], pointer = 0;
+  var konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
+    pointer = 0;
 
   var particles = 150,
     spread = 20,
@@ -365,39 +387,89 @@ function confetti() {
     dThetaMax = 0.7 - dThetaMin;
 
   var colorThemes = [
-    function () { return color((200 * random()) | 0, (200 * random()) | 0, (200 * random()) | 0); },
-    function () { var black = (200 * random()) | 0; return color(200, black, black); },
-    function () { var black = (200 * random()) | 0; return color(black, 200, black); },
-    function () { var black = (200 * random()) | 0; return color(black, black, 200); },
-    function () { return color(200, 100, (200 * random()) | 0); },
-    function () { return color((200 * random()) | 0, 200, 200); },
-    function () { var black = (256 * random()) | 0; return color(black, black, black); },
-    function () { return colorThemes[random() < 0.5 ? 1 : 2](); },
-    function () { return colorThemes[random() < 0.5 ? 3 : 5](); },
-    function () { return colorThemes[random() < 0.5 ? 2 : 4](); },
+    function () {
+      return color(
+        (200 * random()) | 0,
+        (200 * random()) | 0,
+        (200 * random()) | 0
+      );
+    },
+    function () {
+      var black = (200 * random()) | 0;
+      return color(200, black, black);
+    },
+    function () {
+      var black = (200 * random()) | 0;
+      return color(black, 200, black);
+    },
+    function () {
+      var black = (200 * random()) | 0;
+      return color(black, black, 200);
+    },
+    function () {
+      return color(200, 100, (200 * random()) | 0);
+    },
+    function () {
+      return color((200 * random()) | 0, 200, 200);
+    },
+    function () {
+      var black = (256 * random()) | 0;
+      return color(black, black, black);
+    },
+    function () {
+      return colorThemes[random() < 0.5 ? 1 : 2]();
+    },
+    function () {
+      return colorThemes[random() < 0.5 ? 3 : 5]();
+    },
+    function () {
+      return colorThemes[random() < 0.5 ? 2 : 4]();
+    },
   ];
 
-  function color(r, g, b) { return "rgb(" + r + "," + g + "," + b + ")"; }
-  function interpolation(a, b, t) { return ((1 - cos(PI * t)) / 2) * (b - a) + a; }
+  function color(r, g, b) {
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+  function interpolation(a, b, t) {
+    return ((1 - cos(PI * t)) / 2) * (b - a) + a;
+  }
 
-  var radius = 1 / eccentricity, radius2 = radius + radius;
+  var radius = 1 / eccentricity,
+    radius2 = radius + radius;
 
   function createPoisson() {
-    var domain = [radius, 1 - radius], measure = 1 - radius2, spline = [0, 1];
+    var domain = [radius, 1 - radius],
+      measure = 1 - radius2,
+      spline = [0, 1];
     while (measure) {
-      var dart = measure * random(), i, l, interval, a, b, c, d;
+      var dart = measure * random(),
+        i,
+        l,
+        interval,
+        a,
+        b,
+        c,
+        d;
 
       for (i = 0, l = domain.length, measure = 0; i < l; i += 2) {
         (a = domain[i]), (b = domain[i + 1]), (interval = b - a);
-        if (dart < measure + interval) { spline.push((dart += a - measure)); break; }
+        if (dart < measure + interval) {
+          spline.push((dart += a - measure));
+          break;
+        }
         measure += interval;
       }
       (c = dart - radius), (d = dart + radius);
 
       for (i = domain.length - 1; i > 0; i -= 2) {
         (l = i - 1), (a = domain[l]), (b = domain[i]);
-        if (a >= c && a < d) { if (b > d) domain[l] = d; else domain.splice(l, 2); }
-        else if (a < c && b > c) { if (b <= d) domain[i] = c; else domain.splice(i, 0, c, d); }
+        if (a >= c && a < d) {
+          if (b > d) domain[l] = d;
+          else domain.splice(l, 2);
+        } else if (a < c && b > c) {
+          if (b <= d) domain[i] = c;
+          else domain.splice(i, 0, c, d);
+        }
       }
 
       for (i = 0, l = domain.length, measure = 0; i < l; i += 2)
@@ -421,7 +493,8 @@ function confetti() {
     this.inner = document.createElement("div");
     this.outer.appendChild(this.inner);
 
-    var outerStyle = this.outer.style, innerStyle = this.inner.style;
+    var outerStyle = this.outer.style,
+      innerStyle = this.inner.style;
     outerStyle.position = "absolute";
     outerStyle.width = sizeMin + sizeMax * random() + "px";
     outerStyle.height = sizeMin + sizeMax * random() + "px";
@@ -431,7 +504,8 @@ function confetti() {
 
     outerStyle.perspective = "50px";
     outerStyle.transform = "rotate(" + 360 * random() + "deg)";
-    this.axis = "rotate3D(" + cos(360 * random()) + "," + cos(360 * random()) + ",0,";
+    this.axis =
+      "rotate3D(" + cos(360 * random()) + "," + cos(360 * random()) + ",0,";
     this.theta = 360 * random();
     this.dTheta = dThetaMin + dThetaMax * random();
     innerStyle.transform = this.axis + this.theta + "deg)";
@@ -445,7 +519,8 @@ function confetti() {
 
     this.splineX = createPoisson();
     this.splineY = [];
-    for (var i = 1, l = this.splineX.length - 1; i < l; ++i) this.splineY[i] = deviation * random();
+    for (var i = 1, l = this.splineX.length - 1; i < l; ++i)
+      this.splineY[i] = deviation * random();
     this.splineY[0] = this.splineY[l] = deviation * random();
 
     this.update = function (height, delta) {
@@ -454,9 +529,15 @@ function confetti() {
       this.y += this.dy * delta;
       this.theta += this.dTheta * delta;
 
-      var phi = (this.frame % 7777) / 7777, i = 0, j = 1;
+      var phi = (this.frame % 7777) / 7777,
+        i = 0,
+        j = 1;
       while (phi >= this.splineX[j]) i = j++;
-      var rho = interpolation(this.splineY[i], this.splineY[j], (phi - this.splineX[i]) / (this.splineX[j] - this.splineX[i]));
+      var rho = interpolation(
+        this.splineY[i],
+        this.splineY[j],
+        (phi - this.splineX[i]) / (this.splineX[j] - this.splineX[i])
+      );
       phi *= PI2;
 
       outerStyle.left = this.x + rho * cos(phi) + "px";
@@ -470,7 +551,9 @@ function confetti() {
     if (!frame) {
       document.body.appendChild(container);
 
-      var theme = colorThemes[onlyOnKonami ? (colorThemes.length * random()) | 0 : 0], count = 0;
+      var theme =
+          colorThemes[onlyOnKonami ? (colorThemes.length * random()) | 0 : 0],
+        count = 0;
 
       (function addConfetto() {
         if (onlyOnKonami && ++count > particles) return (timer = undefined);
@@ -493,7 +576,8 @@ function confetti() {
           }
         }
 
-        if (timer || confetti.length) return (frame = requestAnimationFrame(loop));
+        if (timer || confetti.length)
+          return (frame = requestAnimationFrame(loop));
         document.body.removeChild(container);
         frame = undefined;
       });
@@ -501,8 +585,14 @@ function confetti() {
   }
 
   $(window).keydown(function (event) {
-    pointer = konami[pointer] === event.which ? pointer + 1 : +(event.which === konami[0]);
-    if (pointer === konami.length) { pointer = 0; poof(); }
+    pointer =
+      konami[pointer] === event.which
+        ? pointer + 1
+        : +(event.which === konami[0]);
+    if (pointer === konami.length) {
+      pointer = 0;
+      poof();
+    }
   });
 
   if (!onlyOnKonami) poof();
@@ -522,7 +612,6 @@ window.addEventListener("DOMContentLoaded", () => {
       const timer = qs("#timer");
       if (timer) timer.classList.add("d-none");
       if (slideSatu) slideSatu.classList.remove("d-none");
-
       // BOOM efek saat slide 1 muncul
       boomAndPaper();
 
@@ -535,8 +624,10 @@ window.addEventListener("DOMContentLoaded", () => {
         document.body.removeEventListener("click", onFirstClick);
         hideTap();
         await playOnFirstInteraction(); // 🎵 mulai musik
-        try { if (typeof confetti === "function") confetti(); } catch(e){}
-        startFlowAfterFirstTap();       // lanjut ke slide 2, dst
+        try {
+          if (typeof confetti === "function") confetti();
+        } catch (e) {}
+        startFlowAfterFirstTap(); // lanjut ke slide 2, dst
       };
       document.body.addEventListener("click", onFirstClick, { once: true });
     }
